@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newPost.entry = entry;
         document.querySelector('main').appendChild(newPost);
         newPost.addEventListener('click', () =>{
+          window.history.pushState({state: 'entry', number: num, entry: newPost.entry},'','/#entry' + num);
           setState({state: 'entry', number: num, entry: newPost.entry});
         });
         count+=1;
@@ -27,13 +28,45 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('popstate',(e)=>{
-  setState(e.state);
+  if(e.state==null){
+    setState({state:'home'});
+  }
+  else if(e.state.state=="entry"){
+
+    setState({state: 'entry', number: e.state.number, entry: e.state.entry});
+  }
+  else{
+    setState({state:'home'});
+  }
+  
 })
 
 settings.addEventListener('click',()=>{
-  setState({state:'settings'});
+  var where = window.location.href.split("#");
+  if(where.length==1 || where[1]!="settings"){
+    window.history.pushState({state:'settings'},'','/#settings');
+    setState({state:'settings'});
+  }
+  
 });
 
 title.addEventListener('click', ()=>{
-  setState({state:'home'});
+  var where = window.location.href.split("#");
+  if(where.length!=1){
+    window.history.pushState({state:'home'}, "", window.location.origin);
+    setState({state:'home'});
+  }
+  
 })
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/Lab7/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('worked');
+    }, function(err) {
+      // registration failed :(
+        console.log('doesnt worked');
+    });
+  });
+}
