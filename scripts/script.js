@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newPost.entry = entry;
         document.querySelector('main').appendChild(newPost);
         newPost.addEventListener('click', () =>{
-          window.history.pushState({state: 'entry', number: num, entry: newPost.entry},'','/#entry' + num);
+          window.history.pushState({state: 'entry', number: num, entry: newPost.entry},'','/Lab7//#entry' + num);
           setState({state: 'entry', number: num, entry: newPost.entry});
         });
         count+=1;
@@ -44,7 +44,7 @@ window.addEventListener('popstate',(e)=>{
 settings.addEventListener('click',()=>{
   var where = window.location.href.split("#");
   if(where.length==1 || where[1]!="settings"){
-    window.history.pushState({state:'settings'},'','/#settings');
+    window.history.pushState({state:'settings'},'','/Lab7/#settings');
     setState({state:'settings'});
   }
   
