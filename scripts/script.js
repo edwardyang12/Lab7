@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newPost.entry = entry;
         document.querySelector('main').appendChild(newPost);
         newPost.addEventListener('click', () =>{
-          window.history.pushState({state: 'entry', number: num, entry: newPost.entry},'','/Lab7//#entry' + num);
+          window.history.pushState({state: 'entry', number: num, entry: newPost.entry},'','/Lab7/#entry' + num);
           setState({state: 'entry', number: num, entry: newPost.entry});
         });
         count+=1;
@@ -53,7 +53,7 @@ settings.addEventListener('click',()=>{
 title.addEventListener('click', ()=>{
   var where = window.location.href.split("#");
   if(where.length!=1){
-    window.history.pushState({state:'home'}, "", window.location.origin);
+    window.history.pushState({state:'home'}, "", window.location.origin+'/Lab7/');
     setState({state:'home'});
   }
   
